@@ -11,7 +11,7 @@ Inspired from:
 - Parallelism, flexible receptive field size, stable gradients, low memory requirements for training, variable length inputs...
 
 <p align="center">
-  <img src="misc/Dilated_Conv.png">
+  <img src="images/Dilated_Conv.png">
   <b>Visualization of a stack of dilated causal convolutional layers (Wavenet, 2016)</b><br><br>
 </p>
 

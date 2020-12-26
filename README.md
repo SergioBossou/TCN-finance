@@ -16,8 +16,8 @@ Inspired from:
 </p>
 
 ### Arguments
-- `dataset`: 
-- `dataset2`
+- `dataset`: pandas.Dataframe. The networks are trained to predict information from this dataset
+- `dataset2`: pandas.Dataframe. This dataset is used as additional information to help predict values from the first dataset
 - `device` : cpu or gpu
 - `epochs`: Integer. Number of training epoch
 - `kernel_size`: Integer. Size of the kernel used in convolutions

@@ -1,9 +1,4 @@
-# ======================================================================================================================
-# title            : 
-# description      : 
-# author           : Sergio
-# date             : 19/12/2020
-# ======================================================================================================================
+
 import numpy as np
 import torch
 import torch.nn as nn
@@ -39,7 +34,7 @@ class View(nn.Module):
 
 
 class ResidualBlock(nn.Module):
-
+    
     def __init__(self, n_channel_input, n_channel_output, kernel_size, stride, dilation, padding):
         super(ResidualBlock, self).__init__()
         self.conv1 = nn.Conv1d(n_channel_input, n_channel_output, kernel_size,

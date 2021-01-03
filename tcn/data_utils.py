@@ -43,7 +43,7 @@ def concatin(what, colnames=None, **kwargs):
 
 
 def preprocess(data):
-    """
+    """ **Min max scaling of data**
 
     Parameters
     ----------
@@ -105,7 +105,8 @@ def data_in_shape(data, n_h, n_x, n_t, rolling_window=1, device='cpu'):
 
 
 def concatenate_time(list_of_data, device):
-    """
+    """         Concatenates dataframes in list_of_data along the last dimension
+
 
     Parameters
     ----------
@@ -115,7 +116,7 @@ def concatenate_time(list_of_data, device):
 
     Returns
     -------
-        Concatenates dataframes in list_of_data along the last dimension
+    result: torch.tensor
     """
     n, m, p = list_of_data[0].shape[0], list_of_data[0].shape[1], len(list_of_data)
     result = torch.full((n, m, p), np.nan).float().to(device)

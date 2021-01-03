@@ -42,6 +42,7 @@ class Train:
         self.data_in_format()
 
     def init_nets(self,):
+        """ Initialisation of neural networks """
         print("Creating new networks")
         self.encoder = nt.Encoder(n_layers=self.n_layers_encod, n_inputs=self.n_inputs, n_outputs=self.n_outputs,
                           dilation=self.dilation, receptive_field=self.receptive_field, stride=self.stride, kernel_size=self.kernel_size,
@@ -55,6 +56,7 @@ class Train:
         self.optimizerD = [torch.optim.Adam(self.decoders[i].parameters(), lr=self.lr, betas=(0.5, 0.9)) for i in range(self.future_size)]
 
     def resumed(self):
+        """ Loads saved networks """
         print("Previous networks loaded")
         saved_data = torch.load(self.outf + f'/deeptcn.pt')
         self.encoder.load_state_dict(saved_data['encoder'])
@@ -64,6 +66,7 @@ class Train:
             self.optimizerD[i].load_state_dict(saved_data[f'optimizerD_state_dict_{i}'])
 
     def data_in_format(self):
+        """ Changes provided data format """
         # We separate training set and test set
         self.train_set_y = self.dataset.iloc[:self.sep_train_test, :]
         self.train_set_X = self.dataset2.iloc[:self.sep_train_test, :]
@@ -83,6 +86,7 @@ class Train:
                                                              self.future_size, self.device)
 
     def train(self):
+        """ Neural nets training """
         # Throughout training we save the MSE loss on train and test set
         self.Losses = []
         self.Losses_test = []
@@ -133,6 +137,7 @@ class Train:
         self.plot_figure()
 
     def save_checkpoint(self) :
+        """ Save networks at checkpoint """
         torch.save({**{'encoder': self.encoder.state_dict(),
                        'optimizerE_state_dict': self.optimizerE.state_dict()},
                     **{f'decoder_{i}':self.decoders[i].state_dict() for i in range(self.future_size)},
@@ -140,6 +145,7 @@ class Train:
                    self.outf + f'/deeptcn.pt')
 
     def plot_figure(self ):
+        """ Plot current state """
         encod_output = self.encoder(X=self.encod_X_train, y=self.encod_y_train)
         decod_outputs = [self.decoders[i](info=self.decod_X_train[:, :, :i + 1], memory=encod_output) for i in
                                range(self.future_size)]
@@ -170,5 +176,3 @@ class Train:
 
 
 
-# endregion
-# endregion
